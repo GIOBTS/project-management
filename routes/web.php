@@ -43,7 +43,7 @@ Route::name('oidc.')
 
 Route::get("/login", function () {
     return Socialite::driver('laravelpassport')->redirect();
-})->name( "filament.auth.login" );
+})->name("filament.auth.login");
 
 Route::get("/register", function () {
     return Socialite::driver('laravelpassport')->redirect();
@@ -51,10 +51,36 @@ Route::get("/register", function () {
 
 
 
- 
+
+
 Route::get('/auth/callback', function () {
-    $user = Socialite::driver('laravelpassport')->user();
- 
-    dd($user);
-    // $user->token
+    $res = Socialite::driver('laravelpassport')->user();
+    $nexudyUser = $res->user;
+
+    $user = User::where('email', $nexudyUser["email"])->first();
+    if (!$user) {
+        $user = User::createUser(
+            (object) [
+                "email" => $nexudyUser["email"],
+                "name" => $nexudyUser["first_name"] ." ". $nexudyUser["last_name"],                
+                "password" => null,
+            ]
+        );
+
+        try {
+            // Mail::to( $nexudyUser->getEmail() )->send(new AccountCreated ());
+        } catch (\Exception $e) {
+            return response([
+                'errors' => [
+                    'email' => [
+                        $e->getMessage()
+                    ]
+                ]
+            ], 422);
+        }
+
+    }
+
+    Auth::login($user);
+    return redirect()->route('filament.pages.dashboard');
 });

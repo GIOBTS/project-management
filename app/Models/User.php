@@ -18,6 +18,7 @@ use JeffGreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use ProtoneMedia\LaravelVerifyNewEmail\MustVerifyNewEmail;
 use Ramsey\Uuid\Uuid;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser
@@ -125,4 +126,29 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     {
         return true;
     }
+
+
+    public static function createUser($param)
+    {
+
+        $user = User::firstOrNew([
+            'email' => $param->email
+        ]);
+        $user->name = $param->name;
+        $user->email = $param->email;
+        $user->email_verified_at = now();
+        $user->password = $param->password;
+
+
+
+        // Assign Default roles
+        $defaultRole = Role::findByName('Default role');
+        $user->assignRole($defaultRole);
+
+
+        $user->save();
+        return $user;
+
+    }
+
 }
