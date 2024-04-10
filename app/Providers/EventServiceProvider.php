@@ -7,6 +7,7 @@ use DutchCodingCompany\FilamentSocialite\Events\Registered as SocialRegistered;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         SocialRegistered::class => [
             SocialRegistration::class
-        ]
+        ],
+        SocialiteWasCalled::class => [
+            // ... other providers
+            \SocialiteProviders\LaravelPassport\LaravelPassportExtendSocialite::class . '@handle',
+        ],
     ];
 
     /**

@@ -48,3 +48,13 @@ Route::get("/login", function () {
 Route::get("/register", function () {
     return Socialite::driver('laravelpassport')->redirect();
 })->name("filament.auth.register");
+
+
+
+ 
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('laravelpassport')->user();
+ 
+    dd($user);
+    // $user->token
+});
