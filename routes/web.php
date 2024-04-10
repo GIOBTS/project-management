@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use App\Http\Controllers\RoadMap\DataController;
 use App\Http\Controllers\Auth\OidcAuthController;
+use Laravel\Socialite\Facades\Socialite;
 
 // Share ticket
 Route::get('/tickets/share/{ticket:code}', function (Ticket $ticket) {
@@ -36,3 +37,14 @@ Route::name('oidc.')
         Route::get('redirect', [OidcAuthController::class, 'redirect'])->name('redirect');
         Route::get('callback', [OidcAuthController::class, 'callback'])->name('callback');
     });
+
+
+// Login and Registration overriden to use the passport
+
+Route::get("/login", function () {
+    return Socialite::driver('laravelpassport')->redirect();
+})->name( "filament.auth.login" );
+
+Route::get("/register", function () {
+    return Socialite::driver('laravelpassport')->redirect();
+})->name("filament.auth.register");
