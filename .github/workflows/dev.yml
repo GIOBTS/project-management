@@ -1,0 +1,99 @@
+name: Mai Branch Deployment
+
+on:
+  push:
+    branches: ["dev"]
+jobs:
+  Development-Deployment:
+    runs-on: self-hosted
+    env:
+      dir: /var/www/pm-dev.nexudy.com
+
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server"
+      # - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to rebuild  your code on the runner."
+
+      # - name: "Stop the server"
+      # working-directory: ${{env.dir}}
+      # run: ./artisan down
+
+      # APP_KEY=base64:w2gmCeB3zuR2ateqA18sCBLZQjQuThKXhaFJerZYHQU=
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # Extract the build archive on the server
+      - name: Copy the code
+        run: cp -rf . ${{env.dir}}
+
+      - name: Get env file
+        working-directory: ${{env.dir}}
+        run: cp  /opt/env/dev/pm-dev.nexudy.com ./.env
+
+      - name: Composer update
+        working-directory: ${{env.dir}}
+        run: composer update
+
+      - name: Composer inistall
+        working-directory: ${{env.dir}}
+        run: composer install --optimize-autoloader --no-dev
+
+      - name: Make artisan executable
+        working-directory: ${{env.dir}}
+        run: chmod +x ./artisan
+
+      - name: Build react code
+        working-directory: ${{env.dir}}
+        run: pnpm update && pnpm i && pnpm build
+
+      - name: Cache clear
+        working-directory: ${{env.dir}}
+        run: ./artisan cache:clear
+
+      - name: Config clear
+        working-directory: ${{env.dir}}
+        run: ./artisan config:clear
+
+      - name: Link Storage
+        working-directory: ${{env.dir}}
+        run: ./artisan storage:link
+
+      - name: Config Cache
+        working-directory: ${{env.dir}}
+        run: ./artisan config:cache
+
+      - name: Route Cache
+        working-directory: ${{env.dir}}
+        run: ./artisan route:cache
+
+      - name: View Cache
+        working-directory: ${{env.dir}}
+        run: ./artisan view:cache
+
+      - name: Optimize
+        working-directory: ${{env.dir}}
+        run: ./artisan optimize
+
+      # - run: docker compose build
+      # - run: docker compose up -d
+      - name: Start the server
+        working-directory: ${{env.dir}}
+        run: ./artisan up
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+    # - uses: actions/checkout@v3
+    # - name: Re Build the Docker image
+# z
