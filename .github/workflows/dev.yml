@@ -73,6 +73,12 @@ jobs:
         working-directory: ${{env.dir}}
         run: ./artisan config:cache
 
+      - name: Livewire discoiver
+        working-directory: ${{env.dir}}
+        run: ./artisan livewire:discover        
+
+        
+
       - name: Route Cache
         working-directory: ${{env.dir}}
         run: ./artisan route:cache
