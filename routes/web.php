@@ -41,13 +41,13 @@ Route::name('oidc.')
 
 // Login and Registration overriden to use the passport
 
-// Route::get("/login", function () {
-//     return Socialite::driver('laravelpassport')->redirect();
-// })->name("filament.auth.login");
+Route::get("/login", function () {
+    return Socialite::driver('laravelpassport')->redirect();
+})->name("filament.auth.login_oauth");
 
-// Route::get("/register", function () {
-//     return Socialite::driver('laravelpassport')->redirect();
-// })->name("filament.auth.register");
+Route::get("/register", function () {
+    return Socialite::driver('laravelpassport')->redirect();
+})->name("filament.auth.register_oauth");
 
 
 Route::get('/auth/callback', function () {
@@ -59,7 +59,7 @@ Route::get('/auth/callback', function () {
         $user = User::createUser(
             (object) [
                 "email" => $nexudyUser["email"],
-                "name" => $nexudyUser["first_name"] ." ". $nexudyUser["last_name"],                
+                "name" => $nexudyUser["first_name"] . " " . $nexudyUser["last_name"],
                 "password" => null,
             ]
         );
