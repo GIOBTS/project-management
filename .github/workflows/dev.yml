@@ -36,7 +36,7 @@ jobs:
       
       - name: Own by ubuntu
         working-directory: ${{env.dir}}
-        run: sudo chown ubuntu:ubuntu .
+        run: sudo chown -R ubuntu:ubuntu .
 
 
       # Extract the build archive on the server
@@ -106,7 +106,7 @@ jobs:
 
       - name: Own by www-data
         working-directory: ${{env.dir}}
-        run: sudo chown www-data:www-data .        
+        run: sudo chown -R www-data:www-data .        
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
