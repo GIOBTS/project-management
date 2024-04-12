@@ -43,11 +43,11 @@ Route::name('oidc.')
 
 Route::get("/login", function () {
     return Socialite::driver('laravelpassport')->redirect();
-})->name("filament.auth.login_oauth");
+})->name("filament.auth.login");
 
 Route::get("/register", function () {
     return Socialite::driver('laravelpassport')->redirect();
-})->name("filament.auth.register_oauth");
+})->name("filament.auth.register");
 
 
 Route::get('/auth/callback', function () {
