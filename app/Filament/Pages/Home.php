@@ -15,11 +15,7 @@ use Filament\Pages\Page;
 
 class Home extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
-
     protected static bool $shouldRegisterNavigation = false;
-
-    protected static string $view = 'filament.pages.dashboard';
     protected static ?string $slug = 'dashboard';
 
 
