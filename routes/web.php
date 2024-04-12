@@ -50,7 +50,9 @@ Route::get("/register", function () {
 })->name("filament.auth.register");
 
 
-
+Route::get("/", function(){
+    return "THis is home";
+});
 
 
 Route::get('/auth/callback', function () {
@@ -84,3 +86,4 @@ Route::get('/auth/callback', function () {
     Auth::login($user);
     return redirect()->route('filament.pages.dashboard');
 });
+
