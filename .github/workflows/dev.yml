@@ -85,9 +85,9 @@ jobs:
 
         
 
-      - name: Route Cache
-        working-directory: ${{env.dir}}
-        run: ./artisan route:cache
+      # - name: Route Cache
+      #   working-directory: ${{env.dir}}
+      #   run: ./artisan route:cache
 
       - name: View Cache
         working-directory: ${{env.dir}}
