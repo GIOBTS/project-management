@@ -41,13 +41,13 @@ Route::name('oidc.')
 
 // Login and Registration overriden to use the passport
 
-Route::get("/login", function () {
-    return Socialite::driver('laravelpassport')->redirect();
-})->name("filament.auth.login");
+// Route::get("/login", function () {
+//     return Socialite::driver('laravelpassport')->redirect();
+// })->name("filament.auth.login");
 
-Route::get("/register", function () {
-    return Socialite::driver('laravelpassport')->redirect();
-})->name("filament.auth.register");
+// Route::get("/register", function () {
+//     return Socialite::driver('laravelpassport')->redirect();
+// })->name("filament.auth.register");
 
 
 Route::get('/auth/callback', function () {
