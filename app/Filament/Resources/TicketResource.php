@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TicketResource\Pages;
-use App\Filament\Resources\TicketResource\RelationManagers;
 use App\Models\Epic;
 use App\Models\Project;
 use App\Models\Ticket;
@@ -64,7 +63,7 @@ class TicketResource extends Resource
                                                 TicketStatus::where('project_id', $project->id)
                                                     ->where('is_default', true)
                                                     ->first()
-                                                    ?->id
+                                                ?->id
                                             );
                                         } else {
                                             $set(
@@ -72,14 +71,14 @@ class TicketResource extends Resource
                                                 TicketStatus::whereNull('project_id')
                                                     ->where('is_default', true)
                                                     ->first()
-                                                    ?->id
+                                                ?->id
                                             );
                                         }
                                     })
                                     ->options(fn() => Project::where('owner_id', auth()->user()->id)
-                                        ->orWhereHas('users', function ($query) {
-                                            return $query->where('users.id', auth()->user()->id);
-                                        })->pluck('name', 'id')->toArray()
+                                            ->orWhereHas('users', function ($query) {
+                                                return $query->where('users.id', auth()->user()->id);
+                                            })->pluck('name', 'id')->toArray()
                                     )
                                     ->default(fn() => request()->get('project'))
                                     ->required(),
@@ -148,12 +147,12 @@ class TicketResource extends Resource
                                                     return TicketStatus::where('project_id', $project->id)
                                                         ->where('is_default', true)
                                                         ->first()
-                                                        ?->id;
+                                                    ?->id;
                                                 } else {
                                                     return TicketStatus::whereNull('project_id')
                                                         ->where('is_default', true)
                                                         ->first()
-                                                        ?->id;
+                                                    ?->id;
                                                 }
                                             })
                                             ->required(),
@@ -194,9 +193,9 @@ class TicketResource extends Resource
                                 $ticketRelation = TicketRelation::find($state['id'] ?? 0);
                                 if ($ticketRelation) {
                                     return __(config('system.tickets.relations.list.' . $ticketRelation->type))
-                                        . ' '
-                                        . $ticketRelation->relation->name
-                                        . ' (' . $ticketRelation->relation->code . ')';
+                                    . ' '
+                                    . $ticketRelation->relation->name
+                                    . ' (' . $ticketRelation->relation->code . ')';
                                 }
                                 return null;
                             })
@@ -311,9 +310,9 @@ class TicketResource extends Resource
                     ->label(__('Project'))
                     ->multiple()
                     ->options(fn() => Project::where('owner_id', auth()->user()->id)
-                        ->orWhereHas('users', function ($query) {
-                            return $query->where('users.id', auth()->user()->id);
-                        })->pluck('name', 'id')->toArray()),
+                            ->orWhereHas('users', function ($query) {
+                                return $query->where('users.id', auth()->user()->id);
+                            })->pluck('name', 'id')->toArray()),
 
                 Tables\Filters\SelectFilter::make('owner_id')
                     ->label(__('Owner'))

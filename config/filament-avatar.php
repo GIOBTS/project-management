@@ -9,7 +9,7 @@ return [
     |
     | This value is the provider to use when generating the user's avatar url
     |
-    */
+     */
     'default_provider' => 'ui-avatar',
 
     /*
@@ -19,7 +19,7 @@ return [
     |
     | This value is the definition of the different avatar providers
     |
-    */
+     */
     'providers' => [
         // UI Avatar provider (https://ui-avatars.com/)
         'ui-avatar' => [
@@ -36,10 +36,10 @@ return [
             'text_color' => 'FFFFFF',
 
             // Background color used if the 'dynamic_bg_color' flag is false
-            'bg_color' => '111827',
+            'bg_color' => '3788D8',
 
             // If 'true' the provider will generate a dynamic 'bg_color' based on user's name
-            'dynamic_bg_color' => true,
+            'dynamic_bg_color' => false,
 
             // HSL ranges
             // You can change them as you like to adapt the dynamic background color
@@ -57,7 +57,7 @@ return [
             'url' => 'https://www.gravatar.com/avatar/',
 
             // User's field used to generate avatar
-            'name_field' => 'email'
+            'name_field' => 'email',
         ],
     ],
 
