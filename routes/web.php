@@ -50,6 +50,10 @@ Route::get("/register", function () {
 })->name("filament.auth.register");
 
 
+Route::get("/dashboard", function(){
+    return "Shh";
+} )->name("filament.pages.dashboard");
+
 Route::get('/auth/callback', function () {
     $res = Socialite::driver('laravelpassport')->user();
     $nexudyUser = $res->user;
