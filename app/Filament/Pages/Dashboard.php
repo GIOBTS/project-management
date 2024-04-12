@@ -21,7 +21,7 @@ class Dashboard extends BasePage
     protected static ?string $slug = 'dashboard.old';
     
 
-
+ 
     protected function getColumns(): int|array
     {
         return 6;
