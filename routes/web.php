@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\User;
-use App\Models\Ticket;
-use Illuminate\Support\Facades\Route;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use App\Http\Controllers\RoadMap\DataController;
 use App\Http\Controllers\Auth\OidcAuthController;
+use App\Http\Controllers\RoadMap\DataController;
+use App\Models\Ticket;
+use App\Models\User;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
 // Share ticket
@@ -20,7 +20,7 @@ Route::get('/validate-account/{user:creation_token}', function (User $user) {
     ->name('validate-account')
     ->middleware([
         'web',
-        DispatchServingFilamentEvent::class
+        DispatchServingFilamentEvent::class,
     ]);
 
 // Login default redirection
@@ -38,7 +38,6 @@ Route::name('oidc.')
         Route::get('callback', [OidcAuthController::class, 'callback'])->name('callback');
     });
 
-
 // Login and Registration overriden to use the passport
 
 Route::get("/", function () {
@@ -53,7 +52,6 @@ Route::get("/login", function () {
 Route::get("/register", function () {
     return Socialite::driver('laravelpassport')->redirect();
 })->name("filament.auth.register");
-
 
 Route::get('/auth/callback', function () {
     $res = Socialite::driver('laravelpassport')->user();
@@ -75,9 +73,9 @@ Route::get('/auth/callback', function () {
             return response([
                 'errors' => [
                     'email' => [
-                        $e->getMessage()
-                    ]
-                ]
+                        $e->getMessage(),
+                    ],
+                ],
             ], 422);
         }
 
@@ -86,4 +84,6 @@ Route::get('/auth/callback', function () {
     Auth::login($user);
     return redirect()->route('filament.pages.dashboard');
 });
+
+Route::post('/logout', [OidcAuthController::class,'logout'])->name('logout');
 

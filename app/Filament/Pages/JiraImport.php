@@ -32,7 +32,7 @@ class JiraImport extends Page implements HasForms
 
     protected $listeners = [
         'updateJiraProjects',
-        'updateJiraTickets'
+        'updateJiraTickets',
     ];
 
     public $host;
@@ -57,7 +57,7 @@ class JiraImport extends Page implements HasForms
         return auth()->user()->can('Import from Jira');
     }
 
-    protected function getSubheading(): string|Htmlable|null
+    protected function getSubheading(): string | Htmlable | null
     {
         return __('Use this section to login into your jira account and import tickets to this application');
     }
@@ -82,7 +82,7 @@ class JiraImport extends Page implements HasForms
                             ->schema([
                                 Placeholder::make('info')
                                     ->extraAttributes([
-                                        'class' => 'bg-primary-500 rounded-lg border border-primary-600 text-white font-medium text-sm py-3 px-4'
+                                        'class' => 'bg-primary-500 rounded-lg border border-primary-600 text-white font-medium text-sm py-3 px-4',
                                     ])
                                     ->disableLabel()
                                     ->content(__('Important: Your jira credentials are only used to communicate with jira REST API, and will not be stored in this application')),
@@ -115,7 +115,7 @@ class JiraImport extends Page implements HasForms
                             ->schema([
                                 Placeholder::make('hint')
                                     ->extraAttributes([
-                                        'class' => 'bg-primary-500 rounded-lg border border-primary-600 text-white font-medium text-sm py-3 px-4'
+                                        'class' => 'bg-primary-500 rounded-lg border border-primary-600 text-white font-medium text-sm py-3 px-4',
                                     ])
                                     ->disableLabel()
                                     ->visible(fn() => !$this->loadingProjects && $this->projects)
@@ -123,7 +123,7 @@ class JiraImport extends Page implements HasForms
 
                                 Placeholder::make('loading')
                                     ->extraAttributes([
-                                        'class' => 'bg-warning-500 rounded-lg border border-warning-600 text-white font-medium text-sm py-3 px-4'
+                                        'class' => 'bg-warning-500 rounded-lg border border-warning-600 text-white font-medium text-sm py-3 px-4',
                                     ])
                                     ->disableLabel()
                                     ->visible(fn() => $this->loadingProjects)
@@ -131,7 +131,7 @@ class JiraImport extends Page implements HasForms
 
                                 Placeholder::make('info')
                                     ->extraAttributes([
-                                        'class' => 'bg-danger-500 rounded-lg border border-danger-600 text-white font-medium text-sm py-3 px-4'
+                                        'class' => 'bg-danger-500 rounded-lg border border-danger-600 text-white font-medium text-sm py-3 px-4',
                                     ])
                                     ->disableLabel()
                                     ->visible(fn() => !$this->loadingProjects && !$this->projects)
@@ -171,7 +171,7 @@ class JiraImport extends Page implements HasForms
 
                                 $fields[] = Placeholder::make('hint')
                                     ->extraAttributes([
-                                        'class' => 'bg-primary-500 rounded-lg border border-primary-600 text-white font-medium text-sm py-3 px-4'
+                                        'class' => 'bg-primary-500 rounded-lg border border-primary-600 text-white font-medium text-sm py-3 px-4',
                                     ])
                                     ->disableLabel()
                                     ->visible(fn() => !$this->loadingTickets && $this->tickets)
@@ -179,7 +179,7 @@ class JiraImport extends Page implements HasForms
 
                                 $fields[] = Placeholder::make('loading')
                                     ->extraAttributes([
-                                        'class' => 'bg-warning-500 rounded-lg border border-warning-600 text-white font-medium text-sm py-3 px-4'
+                                        'class' => 'bg-warning-500 rounded-lg border border-warning-600 text-white font-medium text-sm py-3 px-4',
                                     ])
                                     ->disableLabel()
                                     ->visible(fn() => $this->loadingTickets)
@@ -192,7 +192,7 @@ class JiraImport extends Page implements HasForms
                                                 $fields[] = Placeholder::make('tickets_' . Str::slug($projectKey))
                                                     ->label(__('Tickets for the project:') . ' ' . $projectKey)
                                                     ->extraAttributes([
-                                                        'style' => 'margin-bottom: -15px;'
+                                                        'style' => 'margin-bottom: -15px;',
                                                     ])
                                                     ->content('');
 
@@ -217,7 +217,7 @@ class JiraImport extends Page implements HasForms
                                     } else {
                                         $fields[] = Placeholder::make('info')
                                             ->extraAttributes([
-                                                'class' => 'bg-warning-500 rounded-lg border border-warning-600 text-white font-medium text-sm py-3 px-4'
+                                                'class' => 'bg-warning-500 rounded-lg border border-warning-600 text-white font-medium text-sm py-3 px-4',
                                             ])
                                             ->disableLabel()
                                             ->visible(fn() => !$this->projects)
