@@ -11,15 +11,16 @@ use App\Filament\Widgets\TicketsByPriority;
 use App\Filament\Widgets\TicketsByType;
 use App\Filament\Widgets\TicketTimeLogged;
 use App\Filament\Widgets\UserTimeLogged;
-use Filament\Pages\Page;
+use Filament\Pages\Dashboard as BasePage;
 
-class Home extends Page
+class Dashboard extends BasePage
 {
     protected static bool $shouldRegisterNavigation = false;
-    protected static ?string $slug = 'dashboard';
+    protected static ?string $slug = 'dashboard_old';
+    protected static string $view = 'filament.pages.dashboard';
+   
 
-
-
+ 
     protected function getColumns(): int|array
     {
         return 6;
