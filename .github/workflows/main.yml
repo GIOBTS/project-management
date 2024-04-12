@@ -2,12 +2,12 @@ name: Main Branch Deployment
  
 on:
   push:
-    branches: ["main"]
+    branches: ["dev"]
 jobs:
   Development-Deployment:
     runs-on: self-hosted
     env:
-      dir: /var/www/pm.nexudy.com
+      dir: /var/www/project
 
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
