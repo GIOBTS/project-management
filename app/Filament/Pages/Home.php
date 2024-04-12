@@ -28,15 +28,15 @@ class Home extends Page
     protected function getWidgets(): array
     {
         return [
-            FavoriteProjects::class,
-            LatestActivities::class,
-            LatestComments::class,
-            LatestProjects::class,
-            LatestTickets::class,
-            TicketsByPriority::class,
-            TicketsByType::class,
-            TicketTimeLogged::class,
-            UserTimeLogged::class
+            // FavoriteProjects::class,
+            // LatestActivities::class,
+            // LatestComments::class,
+            // LatestProjects::class,
+            // LatestTickets::class,
+            // TicketsByPriority::class,
+            // TicketsByType::class,
+            // TicketTimeLogged::class,
+            // UserTimeLogged::class
         ];
     }
 }
