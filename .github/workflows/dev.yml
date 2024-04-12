@@ -2,7 +2,7 @@ name: Mai Branch Deployment
 
 on:
   push:
-    branches: ["devbak"]
+    branches: ["dev"]
 jobs:
   Development-Deployment:
     runs-on: self-hosted

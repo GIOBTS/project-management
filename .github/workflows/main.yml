@@ -2,7 +2,7 @@ name: Main Branch Deployment
  
 on:
   push:
-    branches: ["dev"]
+    branches: ["main"]
 jobs:
   Development-Deployment:
     runs-on: self-hosted
