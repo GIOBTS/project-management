@@ -41,6 +41,11 @@ Route::name('oidc.')
 
 // Login and Registration overriden to use the passport
 
+Route::get("/", function () {
+    return redirect("/dashboard");
+});
+
+
 Route::get("/login", function () {
     return Socialite::driver('laravelpassport')->redirect();
 })->name("filament.auth.login");
