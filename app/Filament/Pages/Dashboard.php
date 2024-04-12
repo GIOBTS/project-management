@@ -15,7 +15,12 @@ use Filament\Pages\Dashboard as BasePage;
 
 class Dashboard extends BasePage
 {
-    protected static bool $shouldRegisterNavigation = false;  
+    protected static bool $shouldRegisterNavigation = false;
+
+    // protected static string $view = 'filament.pages.dashboard';
+    protected static ?string $slug = 'dashboard.old';
+    
+
 
     protected function getColumns(): int|array
     {
