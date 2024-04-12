@@ -9,6 +9,7 @@ use App\Settings\GeneralSettings;
 use Illuminate\Http\Request;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\GenericProvider;
+use Illuminate\Support\Facades\Auth;
 
 class OidcAuthController extends Controller
 {
@@ -81,6 +82,21 @@ class OidcAuthController extends Controller
         } catch (IdentityProviderException $e) {
             session()->flash('oidc_error');
             return redirect()->route('login');
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            Auth::logout();
+
+            $loginUrl = 'http://localhost:8000/logout_from_pm?email=' . urlencode($user->email);
+
+            return redirect()->to($loginUrl);
+        } else {
+           return redirect()->route('/');
         }
     }
 }
