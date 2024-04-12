@@ -34,6 +34,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
+      
+      - name: Own by ubuntu
+        working-directory: ${{env.dir}}
+        run: sudo chown -R ubuntu:ubuntu .
+
+
       # Extract the build archive on the server
       - name: Copy the code
         run: cp -rf . ${{env.dir}}
@@ -91,6 +97,12 @@ jobs:
       - name: Start the server
         working-directory: ${{env.dir}}
         run: ./artisan up
+
+      
+      - name: Own by www-data
+        working-directory: ${{env.dir}}
+        run: sudo chown -R www-data:www-data .
+
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
