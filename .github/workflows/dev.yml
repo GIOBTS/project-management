@@ -7,8 +7,7 @@ jobs:
   Development-Deployment:
     runs-on: self-hosted
     env:
-      dir: /var/www/pm-dev.nexudy.com
-
+      dir: /var/www/nested
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server"
@@ -33,6 +32,12 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+
+      
+      - name: Own by ubuntu
+        working-directory: ${{env.dir}}
+        run: sudo chown -R ubuntu:ubuntu .
+
 
       # Extract the build archive on the server
       - name: Copy the code
@@ -74,6 +79,12 @@ jobs:
         working-directory: ${{env.dir}}
         run: ./artisan config:cache
 
+      - name: Livewire discoiver
+        working-directory: ${{env.dir}}
+        run: ./artisan livewire:discover        
+
+        
+
       - name: Route Cache
         working-directory: ${{env.dir}}
         run: ./artisan route:cache
@@ -91,6 +102,11 @@ jobs:
       - name: Start the server
         working-directory: ${{env.dir}}
         run: ./artisan up
+
+
+      - name: Own by www-data
+        working-directory: ${{env.dir}}
+        run: sudo chown -R www-data:www-data .        
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
