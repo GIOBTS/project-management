@@ -92,7 +92,7 @@ class OidcAuthController extends Controller
         if ($user) {
             Auth::logout();
 
-            $loginUrl = 'http://localhost:8000/logout_from_pm?email=' . urlencode($user->email);
+            $loginUrl = 'https://app-dev.nexudy.com/logout_from_pm?email=' . urlencode($user->email);
 
             return redirect()->to($loginUrl);
         } else {
