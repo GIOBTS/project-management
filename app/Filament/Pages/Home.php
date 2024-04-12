@@ -11,18 +11,26 @@ use App\Filament\Widgets\TicketsByPriority;
 use App\Filament\Widgets\TicketsByType;
 use App\Filament\Widgets\TicketTimeLogged;
 use App\Filament\Widgets\UserTimeLogged;
-use Filament\Pages\Dashboard as BasePage;
+use App\Models\Project;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Pages\Page;
+use Illuminate\Contracts\Support\Htmlable;
 
-class Home extends BasePage
+class Home extends Page implements HasForms
 {
+    use InteractsWithForms;
+
+    protected static ?string $navigationIcon = 'heroicon-o-view-boards';
+
+    protected static string $view = 'filament.pages.home';
 
     protected static ?string $slug = 'home';
-    protected static bool $shouldRegisterNavigation = false;
 
-    protected function getColumns(): int|array
-    {
-        return 6;
-    }
+    protected static ?int $navigationSort = 4;
 
     protected function getWidgets(): array
     {
