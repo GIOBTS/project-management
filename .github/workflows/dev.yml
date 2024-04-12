@@ -7,7 +7,7 @@ jobs:
   Development-Deployment:
     runs-on: self-hosted
     env:
-      dir: /var/www/nested
+      dir: /var/www/project-dev
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server"
