@@ -46,7 +46,7 @@ jobs:
 
       - name: Get env file
         working-directory: ${{env.dir}}
-        run: cp  /opt/env/prod/app.nexudy.com ./.env
+        run: cp  /opt/env/prod/pm.nexudy.com ./.env
 
       - name: Composer update
         working-directory: ${{env.dir}}
