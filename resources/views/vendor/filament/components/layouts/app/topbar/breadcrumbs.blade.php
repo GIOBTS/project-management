@@ -12,21 +12,33 @@
                 <a
                     href="{{ is_int($url) ? '#' : $url }}"
                     @class([
-                        'text-gray-500' => $loop->last && (! $loop->first),
-                        'dark:text-gray-300' => ((! $loop->last) || $loop->first) && config('filament.dark_mode'),
-                        'dark:text-gray-400' => $loop->last && (! $loop->first) && config('filament.dark_mode'),
+                        'text-gray-500' => $loop->last && !$loop->first,
+                        'dark:text-gray-300' =>
+                            (!$loop->last || $loop->first) && config('filament.dark_mode'),
+                        'dark:text-gray-400' =>
+                            $loop->last && !$loop->first && config('filament.dark_mode'),
                     ])
                 >
                     {{ $label }}
                 </a>
             </li>
 
-            @if (! $loop->last)
+            @if (!$loop->last)
                 <li @class([
                     'h-6 border-r border-gray-300 -skew-x-12',
                     'dark:border-gray-500' => config('filament.dark_mode'),
                 ])></li>
             @endif
         @endforeach
+        <li class="ml-auto">
+            <a
+                href="#"
+                onclick="window.location.href = 'https://app-dev.nexudy.com';"
+                class="inline-block px-4 py-2 rounded-lg text-white"
+                style="background-color: #3788D8; cursor: pointer;"
+            >
+                Back To Dashboard
+            </a>
+        </li>
     </ul>
 </div>
