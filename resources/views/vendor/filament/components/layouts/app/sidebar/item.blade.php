@@ -8,13 +8,15 @@
     'url',
 ])
 
-<li @class(['filament-sidebar-item overflow-hidden', 'filament-sidebar-item-active' => $active])>
+<li @class([
+    'filament-sidebar-item overflow-hidden',
+    'filament-sidebar-item-active' => $active,
+])>
     <a
         href="{{ $url }}"
         {!! $shouldOpenUrlInNewTab ? 'target="_blank"' : '' !!}
         x-on:click="window.matchMedia(`(max-width: 1024px)`).matches && $store.sidebar.close()"
-        @if (config('filament.layout.sidebar.is_collapsible_on_desktop'))
-            x-data="{ tooltip: {} }"
+        @if (config('filament.layout.sidebar.is_collapsible_on_desktop')) x-data="{ tooltip: {} }"
             x-init="
                 Alpine.effect(() => {
                     if (Alpine.store('sidebar').isOpen) {
@@ -28,24 +30,23 @@
                     }
                 })
             "
-            x-tooltip.html="tooltip"
-        @endif
+            x-tooltip.html="tooltip" @endif
         @class([
             'flex items-center justify-center gap-3 px-3 py-2 rounded-lg font-medium transition',
-            'hover:bg-gray-500/5 focus:bg-gray-500/5' => ! $active,
-            'dark:text-gray-300 dark:hover:bg-gray-700' => (! $active) && config('filament.dark_mode'),
-            'bg-primary-500 text-white' => $active,
+            'hover:bg-gray-500/5 focus:bg-gray-500/5' => !$active,
+            'dark:text-gray-300 dark:hover:bg-gray-700' =>
+                !$active && config('filament.dark_mode'),
+            'bg-black text-white' => $active,
         ])
     >
         <x-dynamic-component
-            :component="($active && $activeIcon) ? $activeIcon : $icon"
+            :component="$active && $activeIcon ? $activeIcon : $icon"
             class="h-5 w-5 shrink-0"
         />
 
-        <div class="flex flex-1"
-            @if (config('filament.layout.sidebar.is_collapsible_on_desktop'))
-                x-show="$store.sidebar.isOpen"
-            @endif
+        <div
+            class="flex flex-1"
+            @if (config('filament.layout.sidebar.is_collapsible_on_desktop')) x-show="$store.sidebar.isOpen" @endif
         >
             <span>
                 {{ $slot }}
